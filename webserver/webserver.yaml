@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server-deployment
+  labels:
+    component: web-server-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      component: web-server-pod
+  template:
+    metadata:
+      name: web-server-pod
+      labels:
+        component: web-server-pod
+    spec:
+      containers:
+      - name: web-server
+        image: nginx:alpine
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-server-service
+  labels:
+    component: web-server-service
+spec:
+  selector:
+    component: web-server-pod
+  ports:
+  - port: 8081
+    protocol: TCP
+    targetPort: 8080
