@@ -20,7 +20,12 @@ spec:
           volumeMounts:
             - mountPath: "/usr/share/nginx/html"
               name: task-pv-storage
+            - mountPath: "/usr/share/nginx/custom-local-storage"
+              name: custom-local-storage
       volumes:
         - name: task-pv-storage
           persistentVolumeClaim:
             claimName: task-pv-claim
+        - name: custom-local-storage
+          persistentVolumeClaim:
+            claimName: claim-custom-local-storage
